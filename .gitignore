@@ -1,0 +1,14 @@
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/.idea/*
+**/.pytest_cache/
+**/.DS_Store
+/reference/*
+/backup/*
+**/nohup.out
+**/temp.py
+/data/logs/*
+/data/*.zip
+
+**/weights/
+

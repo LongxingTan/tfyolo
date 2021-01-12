@@ -1,0 +1,12 @@
+matplotlib==3.1.2
+numpy==1.17.4
+opencv-python==4.1.2.30
+PyYAML==5.3.1
+tensorboard==2.3.0
+tensorboard-plugin-wit==1.7.0
+tensorflow-addons==0.11.2
+tensorflow-datasets==3.1.0
+tensorflow-estimator==2.3.0
+tensorflow-gpu==2.3.1
+tensorflow-metadata==0.22.0
+tqdm==4.43.0
