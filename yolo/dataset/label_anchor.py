@@ -113,7 +113,7 @@ class AnchorLabeler(object):
         if rect_style == 'rect2':
             g = 0.2  # offset
         elif rect_style == 'rect4':
-            g = 0.5  #
+            g = 0.5  # offset
             matched = (assigned_xy % 1. < g) & (assigned_xy > 1.)
             matched_left = matched[:, 0]
             matched_up = matched[:, 1]

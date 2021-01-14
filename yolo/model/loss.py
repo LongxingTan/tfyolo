@@ -14,7 +14,8 @@ class YoloLoss(object):
         self.num_classes = num_classes
         self.img_size = img_size
         self.bce_conf = tf.keras.losses.BinaryCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
-        self.bce_class = tf.keras.losses.BinaryCrossentropy(reduction=tf.keras.losses.Reduction.NONE, label_smoothing=label_smoothing)
+        self.bce_class = tf.keras.losses.BinaryCrossentropy(reduction=tf.keras.losses.Reduction.NONE,
+                                                            label_smoothing=label_smoothing)
 
     def __call__(self, y_true, y_pred):
         iou_loss_all = obj_loss_all = class_loss_all = 0
@@ -33,7 +34,7 @@ class YoloLoss(object):
             background_mask = 1.0 - obj_mask
             conf_focal = tf.squeeze(tf.math.pow(true_obj - pred_obj, 2), -1)
 
-            # iou/giou/ciou/diou loss
+            # iou/ giou/ ciou/ diou loss
             iou = bbox_iou(pred_box, true_box, xyxy=False, giou=True)            
             iou_loss = (1 - iou) * obj_mask * box_scale  # batch_size * grid * grid * 3
 
@@ -55,9 +56,9 @@ class YoloLoss(object):
             class_loss_all += class_loss * self.num_classes * balance[i]  # to balance the 3 loss
 
         try:
-            print('-'*55, 'iou', tf.reduce_sum(iou_loss_all).numpy(), ', conf', tf.reduce_sum(obj_loss_all).numpy(), ', class', tf.reduce_sum(class_loss_all).numpy())
-        except:
-            # tf graph mode
+            print('-'*55, 'iou', tf.reduce_sum(iou_loss_all).numpy(), ', conf', tf.reduce_sum(obj_loss_all).numpy(),
+                  ', class', tf.reduce_sum(class_loss_all).numpy())
+        except:  # tf graph mode
             pass
         return (iou_loss_all, obj_loss_all, class_loss_all)
 

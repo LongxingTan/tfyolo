@@ -16,7 +16,8 @@ class Yolo(object):
         self.module_list = self.parse_model(yaml_dict)
         module = self.module_list[-1]
         if isinstance(module, Detect):
-            module.anchors /= tf.reshape(module.stride, [-1, 1, 1])  # the anchors now is based on grid coordinator, 3 * 3 * 2
+            # transfer the anchors to grid coordinator, 3 * 3 * 2
+            module.anchors /= tf.reshape(module.stride, [-1, 1, 1])
 
     def __call__(self, img_size, name='yolo'):
         x = tf.keras.Input([img_size, img_size, 3])
@@ -37,14 +38,16 @@ class Yolo(object):
         return x
 
     def parse_model(self, yaml_dict):
-        anchors, nc, depth_multiple, width_multiple = yaml_dict['anchors'], yaml_dict['nc'], yaml_dict['depth_multiple'], yaml_dict['width_multiple']
+        anchors, nc = yaml_dict['anchors'], yaml_dict['nc']
+        depth_multiple, width_multiple = yaml_dict['depth_multiple'], yaml_dict['width_multiple']
         num_anchors = (len(anchors[0]) // 2) if isinstance(anchors, list) else anchors
         output_dims = num_anchors * (nc + 5)
 
         layers = []
         # # from, number, module, args
         for i, (f, number, module, args) in enumerate(yaml_dict['backbone'] + yaml_dict['head']):
-            module = eval(module) if isinstance(module, str) else module  # all component is a Class, initialize here, call in self.forward
+            # all component is a Class, initialize here, call in self.forward
+            module = eval(module) if isinstance(module, str) else module
 
             for j, arg in enumerate(args):
                 try:
@@ -52,7 +55,7 @@ class Yolo(object):
                 except:
                     pass
 
-            number = max(round(number * depth_multiple), 1) if number > 1 else number  # control the model scale, s/m/l/x
+            number = max(round(number * depth_multiple), 1) if number > 1 else number  # control the model scale
 
             if module in [Conv2D, Conv, Bottleneck, SPP, DWConv, Focus, BottleneckCSP, BottleneckCSP2, SPPCSP, VoVCSP]:
                 c2 = args[0]

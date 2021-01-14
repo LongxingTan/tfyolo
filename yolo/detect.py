@@ -53,7 +53,8 @@ def test_image_demo(img_dir, model_dir, img_size=640, class_name_dir=None, conf_
         class_names = None    
 
     model = tf.saved_model.load(model_dir)
-    image_demo(img, model, img_size=img_size, class_names=class_names, conf_threshold=conf_threshold, iou_threshold=iou_threshold)
+    image_demo(img, model, img_size=img_size, class_names=class_names,
+               conf_threshold=conf_threshold, iou_threshold=iou_threshold)
 
 
 if __name__ == '__main__':

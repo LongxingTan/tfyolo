@@ -1,14 +1,13 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# prepare the voc or coco data to a text for dataset/read_data.py
 
 import os
 import logging
 from tqdm import tqdm
 import argparse
-import numpy as np
 import xml.etree.ElementTree as ET
-import tensorflow as tf
 
 
 class VOCParser(object):
@@ -35,7 +34,7 @@ class VOCParser(object):
             difficult = obj.find('difficult').text
             if difficult == '1':
                 continue
-            name = obj.find('name').text #.encode('utf-8')
+            name = obj.find('name').text  # .encode('utf-8')
             bbox = obj.find('bndbox')
             xmin_ = float(bbox.find('xmin').text)
             ymin_ = float(bbox.find('ymin').text)
@@ -57,8 +56,8 @@ class VOCParser(object):
 
 
 class COCOParser(object):
-    def __init__(self):
-        pass
+    def __init__(self, norm_bbox=False):
+        self.norm_bbox = norm_bbox
 
 
 class DataPrepare(object):

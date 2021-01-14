@@ -117,10 +117,17 @@ class Trainer(object):
             total_loss_mean = self.strategy.reduce(tf.distribute.ReduceOp.MEAN, loss, axis=None)
             return total_loss_mean
 
+    def validate(self, valid_dataset):
+        valid_loss = []
+        for step, (image, target) in enumerate(valid_dataset):
+            step_valid_loss = self.valid_step(image, target)
+            valid_loss.append(step_valid_loss)
+        return np.mean(valid_loss)
+
     def valid_step(self, image, label):
-        logit = self.model(image)
-        loss = self.loss_fn(label, logit)
-        return loss
+        logit = self.model(image, training=False)
+        iou_loss, conf_loss, prob_loss = self.loss_fn(label, logit)
+        return iou_loss + conf_loss + prob_loss
 
     def export_model(self):
         tf.saved_model.save(self.model, self.params['saved_model_dir'])

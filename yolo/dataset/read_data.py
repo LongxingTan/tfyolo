@@ -56,8 +56,8 @@ class DataReader(object):
         example = annotation.split()
         image_dir = example[0]
 
-        label = np.array([list(map(float, box.split(','))) for box in example[1:]])
-        assert label.shape[1] == 5, "Label have and only have 5 dims: xmin, ymin, xmax, ymax, class"
+        label = np.array([list(map(float, box.split(',')[0: 5])) for box in example[1:]])
+        # assert label.shape[1] == 5, "Label have and only have 5 dims: xmin, ymin, xmax, ymax, class"
         # assert np.max(label[:, 0:4]) <= 1, "Label box should be (0, 1), {}".format(annotation)
         return image_dir, label
 
