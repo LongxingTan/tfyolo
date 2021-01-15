@@ -8,18 +8,17 @@ from .label_anchor import AnchorLabeler
 
 
 class DataLoader(object):
-    def __init__(self, DataReader, anchors, stride, img_size=640, anchor_assign_method='wh',
+    def __init__(self, data_reader, anchors, stride, img_size=640, anchor_assign_method='wh',
                  anchor_positive_augment=True):
         '''
         data pipeline from data_reader (image,label) to tf.data
         '''
-        self.data_reader = DataReader
+        self.data_reader = data_reader
         self.anchor_label = AnchorLabeler(anchors,
                                           grids=img_size / stride,
                                           img_size=img_size,
                                           assign_method=anchor_assign_method,
                                           extend_offset=anchor_positive_augment)
-
         self.img_size = img_size
 
     def __call__(self, batch_size=8, valid=False, test=False):
@@ -40,4 +39,3 @@ class DataLoader(object):
     def transform(self, image, label):
         label_encoder = self.anchor_label.encode(label)
         return image, label_encoder
-

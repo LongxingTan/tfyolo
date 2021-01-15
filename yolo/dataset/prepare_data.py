@@ -17,7 +17,7 @@ class VOCParser(object):
         '''
         self.norm_bbox = norm_bbox
 
-    def parse_xml(self, xml_file, data_base_dir, class_map, return_img=True):
+    def parse(self, xml_file, data_base_dir, class_map, return_img=True):
         tree = ET.parse(xml_file)
 
         file_name = tree.findtext("filename")
@@ -59,9 +59,12 @@ class COCOParser(object):
     def __init__(self, norm_bbox=False):
         self.norm_bbox = norm_bbox
 
+    def parse(self):
+        return
+
 
 class DataPrepare(object):
-    def __init__(self, data_dir, class_name_dir, output_dir, text_name='train.txt', data_style='voc'):
+    def __init__(self, data_dir, class_name_dir, output_dir, output_prefix='', data_style='voc'):
         if data_style == 'voc':
             self.parser = VOCParser()
         elif data_style == 'coco':
@@ -77,6 +80,7 @@ class DataPrepare(object):
         self.output_dir = output_dir
         class_name_dir = os.path.join(data_dir, class_name_dir)
         self.class_map = {name: idx for idx, name in enumerate(open(class_name_dir).read().splitlines())}
+        self.output_prefix = output_prefix
 
     def write(self, split_weights=(0.9, 0.1, 0.0)):
         all_objects = self.get_objects()
@@ -84,18 +88,18 @@ class DataPrepare(object):
         split1 = int(len(all_objects) * split_weights[0])
         split2 = int(len(all_objects) * (split_weights[0] + split_weights[1]))
 
-        with open(self.output_dir + '/train.txt', 'w') as f:
+        with open(self.output_dir + '/' + self.output_prefix + 'train.txt', 'w') as f:
             for objects in tqdm(all_objects[: split1]):
                 self.write_single(f, objects)                
         print('Train annotations generated, samples: {}'.format(split1))
 
-        with open(self.output_dir + '/valid.txt', 'w') as f:
+        with open(self.output_dir + '/' + self.output_prefix + 'valid.txt', 'w') as f:
             for objects in tqdm(all_objects[split1: split2]):
                 self.write_single(f, objects)                
         print('Valid annotations generated, samples: {}'.format(split2 - split1))
 
         if split2 < 1:       
-            with open(self.output_dir + '/test.txt', 'w') as f:
+            with open(self.output_dir + '/' + self.output_prefix + 'test.txt', 'w') as f:
                 for objects in tqdm(all_objects[split2:]):
                     self.write_single(f, objects)                
             print('Test annotations generated, samples: {}'.format(len(all_objects) - split2))
@@ -109,7 +113,7 @@ class DataPrepare(object):
     def get_objects(self):
         all_objects = []
         for xml in self.xml_files:
-            objects = self.parser.parse_xml(xml, self.data_dir, self.class_map, return_img=False)
+            objects = self.parser.parse(xml, self.data_dir, self.class_map, return_img=False)
             if objects is not None:
                 all_objects.append(objects)
         # np.random.shuffle(all_objects)

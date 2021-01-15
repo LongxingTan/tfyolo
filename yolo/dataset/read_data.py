@@ -16,11 +16,12 @@ class DataReader(object):
     resize the image, and adjust the label rect if necessary
     augment the dataset (augment function is defined in dataset/augment_data.py)
     '''
-    def __init__(self, annotations_dir, image_target_size=640, mosaic=False, augment=False, filter_idx=None):
+    def __init__(self, annotations_dir, img_size=640, transforms=None, mosaic=False, augment=False, filter_idx=None):
         self.annotations_dir = annotations_dir
         self.annotations = self.load_annotations(annotations_dir)
         self.idx = range(len(self.annotations))
-        self.image_target_size = image_target_size
+        self.img_size = img_size  # image_target_size
+        self.transforms = transforms
         self.mosaic = mosaic
         self.augment = augment
         self.images_dir = []
@@ -40,16 +41,14 @@ class DataReader(object):
 
     def __getitem__(self, idx):
         if self.mosaic:  # mosaic need to load 4 images
-            mosaic_border = [-self.image_target_size // 2, -self.image_target_size // 2]
-            img, label = load_mosaic_image(idx, mosaic_border, self.image_target_size, self.images_dir, self.labels_ori)
+            mosaic_border = [-self.img_size // 2, -self.img_size // 2]
+            img, label = load_mosaic_image(idx, mosaic_border, self.img_size, self.images_dir, self.labels_ori)
         else:
-            img_dir = self.images_dir[idx]
-            img = cv2.imread(img_dir)
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            label = self.labels_ori[idx].copy()
+            img, label = self.load_image_and_label(idx)
 
-        img, label = transform(img, label, mosaic=self.mosaic, augment=self.augment)
-        img, label = resize_image(img, self.image_target_size, keep_ratio=True, label=label)  # resize the image
+        if self.transforms:
+            img, label = self.transforms(img, label, mosaic=self.mosaic, augment=self.augment)
+        img, label = resize_image(img, self.img_size, keep_ratio=True, label=label)  # resize the image
         label[:, 0:4] = xyxy2xywh(label[:, 0:4])  # transfer xyxy to xywh
         return img, label
 
@@ -74,9 +73,21 @@ class DataReader(object):
         # assert np.max(label[:, 0:4]) <= 1, "Label box should be (0, 1), {}".format(annotation)
         return image_dir, label
 
+    def load_image_and_label(self, idx):
+        img_dir = self.images_dir[idx]
+        img = cv2.imread(img_dir)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(np.float32)
+        label = self.labels_ori[idx].copy()
+        return img, label
 
-def transform(img, label, mosaic, augment):
-    # this can be easy to use albumentations
+    def load_mixup_image_and_label(self, idx):
+        img, label = self.load_image_and_label(idx)
+        r_img, r_label = self.load_image_and_label(random.randint(0, len(self.images_dir) - 1))
+        return (img + r_img) / 2, np.vstack((label, r_label)).astype(np.int32)
+
+
+def transforms(img, label, mosaic, augment):
+    # it's also easy to use albumentations here
     if augment:
         if not mosaic:        
             img, label = random_perspective(img, label)

@@ -176,4 +176,3 @@ def random_flip(img, labels=None):
         if labels is not None:
             labels[:, [1,  3]] = 1 - labels[:, [1, 3]]
     return img, labels
-

@@ -26,7 +26,7 @@ YoloV5 implemented by TensorFlow2 , with support for training, evaluation and in
 ```
 $ git clone git@github.com:LongxingTan/Yolov5.git
 $ cd Yolov5/
-$ pip3 install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 <!-- ### Download pretrained weights
 ```
@@ -52,7 +52,6 @@ $ python train.py
 If you want to train on custom dataset, PLEASE note the input data should like this:
 ```
 image_dir/001.jpg x_min, y_min, x_max, y_max, class_id x_min2, y_min2, x_max2, y_max2, class_id2
-/home/longxing/Yolov5/data/VOC2012/Images/19880315.jpg 315,626,638,801,1
 ```
 And maybe new anchor need to be created depending on the data, don't forget to change the nc(number classes) in yolo-yaml.
 

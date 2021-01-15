@@ -11,7 +11,7 @@ import time
 import shutil
 import numpy as np
 import tensorflow as tf
-from dataset.read_data import DataReader
+from dataset.read_data import DataReader, transforms
 from dataset.load_data import DataLoader
 from model.yolo import Yolo
 from model.loss import YoloLoss
@@ -137,7 +137,7 @@ class Trainer(object):
 
 if __name__ == '__main__':
     trainer = Trainer(params)
-    DataReader = DataReader(params['train_annotations_dir'], image_target_size=params['img_size'],
+    DataReader = DataReader(params['train_annotations_dir'], img_size=params['img_size'], transforms=transforms,
                             mosaic=params['mosaic_data'], augment=params['augment_data'], filter_idx=None)
 
     data_loader = DataLoader(DataReader,
