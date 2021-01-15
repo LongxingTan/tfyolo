@@ -59,12 +59,12 @@ def test_image_demo(img_dir, model_dir, img_size=640, class_name_dir=None, conf_
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--img_dir', type=str, default='../data/voc2012/VOCdevkit/VOC2012/JPEGImages/2008_001210.jpg', help='test image dir')
+    parser.add_argument('--img_dir', type=str, default='../data/voc2012/VOCdevkit/VOC2012/JPEGImages/2008_001210.jpg', help='detect image dir')
+    parser.add_argument('--class_name_dir', type=str, default='../data/voc2012/VOCdevkit/VOC2012/voc2012.names', help='classes name dir')
     parser.add_argument('--model_dir', type=str, default='../weights/yolov5', help='saved pb model dir')
     parser.add_argument('--img_size', type=int, default=640, help='image target size')
     parser.add_argument('--conf_threshold', type=float, default=0.4, help='filter confidence threshold')
     parser.add_argument('--iou_threshold', type=float, default=0.3, help='nms iou threshold')
-    parser.add_argument('--class_name_dir', type=str, default='../data/voc2012/VOCdevkit/VOC2012/voc2012.names', help='classes name path')
     opt = parser.parse_args()
 
     test_image_demo(opt.img_dir, opt.model_dir, opt.img_size, opt.class_name_dir, opt.conf_threshold, opt.iou_threshold)

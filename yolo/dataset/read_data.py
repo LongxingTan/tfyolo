@@ -16,7 +16,7 @@ class DataReader(object):
     resize the image, and adjust the label rect if necessary
     augment the dataset (augment function is defined in dataset/augment_data.py)
     '''
-    def __init__(self, annotations_dir, image_target_size=640, mosaic=False, augment=False):
+    def __init__(self, annotations_dir, image_target_size=640, mosaic=False, augment=False, filter_idx=None):
         self.annotations_dir = annotations_dir
         self.annotations = self.load_annotations(annotations_dir)
         self.idx = range(len(self.annotations))
@@ -25,6 +25,11 @@ class DataReader(object):
         self.augment = augment
         self.images_dir = []
         self.labels_ori = []  # original labels
+
+        if filter_idx is not None:  # filter some samples
+            self.idx = [i for i in self.idx if i in filter_idx]
+            print('filter {} from {}'.format(len(self.idx), len(self.annotations)))
+
         for i in self.idx:
             image_dir, label = self.parse_annotations(self.annotations[i])
             self.images_dir.append(image_dir)
