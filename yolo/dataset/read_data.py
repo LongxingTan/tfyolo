@@ -39,9 +39,17 @@ class DataReader(object):
         return len(self.annotations) 
 
     def __getitem__(self, idx):
-        img, label = preprocess_image(idx, mosaic=self.mosaic, augment=self.augment, images_dir=self.images_dir, labels=self.labels_ori,
-                                      image_target_size=self.image_target_size)
-        img, label = resize_image(img, self.image_target_size, keep_ratio=True, label=label)  # resize the image and keep its wh ratio
+        if self.mosaic:  # mosaic need to load 4 images
+            mosaic_border = [-self.image_target_size // 2, -self.image_target_size // 2]
+            img, label = load_mosaic_image(idx, mosaic_border, self.image_target_size, self.images_dir, self.labels_ori)
+        else:
+            img_dir = self.images_dir[idx]
+            img = cv2.imread(img_dir)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            label = self.labels_ori[idx].copy()
+
+        img, label = transform(img, label, mosaic=self.mosaic, augment=self.augment)
+        img, label = resize_image(img, self.image_target_size, keep_ratio=True, label=label)  # resize the image
         label[:, 0:4] = xyxy2xywh(label[:, 0:4])  # transfer xyxy to xywh
         return img, label
 
@@ -67,16 +75,8 @@ class DataReader(object):
         return image_dir, label
 
 
-def preprocess_image(index, mosaic, augment, images_dir, labels, image_target_size):
-    if mosaic:  # mosaic need to load 4 images
-        mosaic_border = [-image_target_size // 2, -image_target_size // 2]
-        img, label = load_mosaic_image(index, mosaic_border, image_target_size, images_dir, labels)
-    else:
-        img_dir = images_dir[index]        
-        img = cv2.imread(img_dir)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        label = labels[index].copy()
-
+def transform(img, label, mosaic, augment):
+    # this can be easy to use albumentations
     if augment:
         if not mosaic:        
             img, label = random_perspective(img, label)
@@ -90,4 +90,3 @@ def preprocess_image(index, mosaic, augment, images_dir, labels, image_target_si
         label[:, [0, 2]] = label[:, [0, 2]] / img.shape[1]
         label[:, [1, 3]] = label[:, [1, 3]] / img.shape[0]
     return img, label
-
