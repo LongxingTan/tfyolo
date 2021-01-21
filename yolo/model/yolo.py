@@ -44,7 +44,7 @@ class Yolo(object):
         output_dims = num_anchors * (nc + 5)
 
         layers = []
-        # # from, number, module, args
+        # from, number, module, args
         for i, (f, number, module, args) in enumerate(yaml_dict['backbone'] + yaml_dict['head']):
             # all component is a Class, initialize here, call in self.forward
             module = eval(module) if isinstance(module, str) else module
@@ -94,11 +94,11 @@ class Detect(Layer):
             grid_xy = tf.cast(tf.expand_dims(tf.stack(grid_xy, axis=-1), axis=2),tf.float32)  
 
             y_norm = tf.sigmoid(y)  # sigmoid for all dims
-            xy, wh, conf, clss = tf.split(y_norm, (2, 2, 1, self.num_classes), axis=-1)
+            xy, wh, conf, classes = tf.split(y_norm, (2, 2, 1, self.num_classes), axis=-1)
 
-            pred_xy = (xy * 2. - 0.5 + grid_xy) * self.stride[i]  # decode the pred to xywh
+            pred_xy = (xy * 2. - 0.5 + grid_xy) * self.stride[i]  # decode pred to xywh
             pred_wh = (wh * 2) ** 2 * self.anchors[i] * self.stride[i]
             
-            out = tf.concat([pred_xy, pred_wh, conf, clss], axis=-1)
+            out = tf.concat([pred_xy, pred_wh, conf, classes], axis=-1)
             res.append(out)
         return res

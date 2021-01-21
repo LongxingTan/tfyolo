@@ -16,7 +16,7 @@ class DataReader(object):
     resize the image, and adjust the label rect if necessary
     augment the dataset (augment function is defined in dataset/augment_data.py)
     '''
-    def __init__(self, annotations_dir, img_size=640, transforms=None, mosaic=False, augment=False, filter_idx=None):
+    def __init__(self, annotations_dir, img_size=640, transforms=None, mosaic=False, augment=False, filter_idx=None, test=False):
         self.annotations_dir = annotations_dir
         self.annotations = self.load_annotations(annotations_dir)
         self.idx = range(len(self.annotations))
@@ -24,6 +24,7 @@ class DataReader(object):
         self.transforms = transforms
         self.mosaic = mosaic
         self.augment = augment
+        self.test = test
         self.images_dir = []
         self.labels_ori = []  # original labels
 
@@ -40,6 +41,10 @@ class DataReader(object):
         return len(self.annotations) 
 
     def __getitem__(self, idx):
+        if self.test:
+            img = self.load_image(idx)
+            img = resize_image(img, self.img_size, keep_ratio=True)
+            return img
         if self.mosaic:  # mosaic need to load 4 images
             mosaic_border = [-self.img_size // 2, -self.img_size // 2]
             img, label = load_mosaic_image(idx, mosaic_border, self.img_size, self.images_dir, self.labels_ori)
@@ -73,10 +78,14 @@ class DataReader(object):
         # assert np.max(label[:, 0:4]) <= 1, "Label box should be (0, 1), {}".format(annotation)
         return image_dir, label
 
-    def load_image_and_label(self, idx):
+    def load_image(self, idx):
         img_dir = self.images_dir[idx]
         img = cv2.imread(img_dir)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(np.float32)
+        return img
+
+    def load_image_and_label(self, idx):
+        img = self.load_image(idx)
         label = self.labels_ori[idx].copy()
         return img, label
 
