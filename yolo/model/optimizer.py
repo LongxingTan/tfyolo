@@ -59,7 +59,7 @@ class Step(tf.keras.optimizers.schedules.LearningRateSchedule):
         lr_steps = self.params['learning_rate_steps']
         assert warmup_steps < self.total_steps, "warmup {}, total {}".format(warmup_steps, self.total_steps)
 
-        linear_warmup = warmup_lr + tf.cast(global_step, tf.folat32) / warmup_steps * (init_lr - warmup_lr)
+        linear_warmup = warmup_lr + tf.cast(global_step, tf.float32) / warmup_steps * (init_lr - warmup_lr)
         learning_rate = tf.where(global_step < warmup_steps, linear_warmup, init_lr)
 
         for next_learning_rate, start_step in zip(lr_levels, lr_steps):
