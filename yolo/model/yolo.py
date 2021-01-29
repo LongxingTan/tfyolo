@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# Implementations of Yolov5 main model
 
 import yaml
 import math

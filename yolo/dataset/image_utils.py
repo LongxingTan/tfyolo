@@ -9,6 +9,7 @@ import tensorflow as tf
 
 def resize_image(img, target_sizes, keep_ratio=True, label=None):
     # Please Note： label style should be normalized xyxy, otherwise need modify
+    # if keep_ratio is True, letterbox using padding
     if not isinstance(target_sizes, (list, set, tuple)):
         target_sizes = [target_sizes, target_sizes]
     target_h, target_w = target_sizes

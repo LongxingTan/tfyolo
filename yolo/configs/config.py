@@ -15,7 +15,7 @@ parser.add_argument('--log_dir', type=str, default='../logs', help='log path')
 parser.add_argument('--checkpoint_dir', type=str, default='../weights', help='saved checkpoint path')
 parser.add_argument('--saved_model_dir', type=str, default='../weights/yolov5', help='saved pb model path')
 
-parser.add_argument('--n_epochs', type=int, default=11)
+parser.add_argument('--n_epochs', type=int, default=30)
 parser.add_argument('--batch_size', type=int, default=8, help='total batch size for all GPUs')
 parser.add_argument('--multi_gpus', type=bool, default=False)
 parser.add_argument('--init_learning_rate', type=float, default=3e-4)

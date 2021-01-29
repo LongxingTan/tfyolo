@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# Implementations of yolo loss function
 
 import math
 import tensorflow as tf
@@ -30,7 +31,7 @@ class YoloLoss(object):
 
             # prepare: higher weights to smaller box, true_wh should be normalized to (0,1)
             box_scale = 2 - 1.0 * true_box[..., 2] * true_box[..., 3] / (self.img_size ** 2)
-            obj_mask = tf.squeeze(true_obj, -1)  # # obj or noobj, batch_size * grid * grid * anchors_per_grid
+            obj_mask = tf.squeeze(true_obj, -1)  # obj or noobj, batch_size * grid * grid * anchors_per_grid
             background_mask = 1.0 - obj_mask
             conf_focal = tf.squeeze(tf.math.pow(true_obj - pred_obj, 2), -1)
 
@@ -44,7 +45,7 @@ class YoloLoss(object):
 
             # class loss
             # use binary cross entropy loss for multi class, so every value is independent and sigmoid 
-            # please note that the output of tf.keras.losses.bce is origial dim minus the last one
+            # please note that the output of tf.keras.losses.bce is original dim minus the last one
             class_loss = obj_mask * self.bce_class(true_class, pred_class)
 
             iou_loss = tf.reduce_mean(tf.reduce_sum(iou_loss, axis=[1, 2, 3]))
@@ -107,13 +108,3 @@ def bbox_iou(bbox1, bbox2, xyxy=False, giou=False, diou=False, ciou=False, epsil
                 return iou - (rho2 / c2 + v * alpha)
     return tf.clip_by_value(iou, 0, 1)
 
-
-def focal_loss(y_true, y_pred, gamma=2.0, alpha=1.0):
-    focal_loss = alpha * tf.power(tf.abs(y_true - y_pred), gamma)
-    return focal_loss
-
-
-def label_smooth(y_true, label_smoothing, num_classes):
-    label_smoothing = tf.constant(label_smoothing, dtype=tf.float32)
-    y_true_smooth = y_true * (1.0 - label_smoothing) + label_smoothing / num_classes
-    return y_true_smooth

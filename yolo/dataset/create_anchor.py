@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# Implementations of anchor generator that uses the k-means clustering to generate anchors for new data
 
 import numpy as np
 
@@ -71,8 +72,8 @@ class Anchor(object):
         box_area = box[0] * box[1]
         cluster_area = clusters[:, 0] * clusters[:, 1]
 
-        iou_ = np.true_divide(intersection, box_area + cluster_area - intersection + 1e-6)
-        # iou_ = intersection / (box_area + cluster_area - intersection + 1e-10)
+        iou_ = np.true_divide(intersection, box_area + cluster_area - intersection + 1e-7)
+        # iou_ = intersection / (box_area + cluster_area - intersection + 1e-7)
         return iou_
 
     def get_avg_iou(self, boxes, clusters):

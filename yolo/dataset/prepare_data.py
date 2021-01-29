@@ -17,8 +17,8 @@ class VOCParser(object):
         '''
         self.norm_bbox = norm_bbox
 
-    def parse(self, xml_file, data_base_dir, class_map, return_img=True):
-        tree = ET.parse(xml_file)
+    def parse(self, anno_file, data_base_dir, class_map, return_img=True):
+        tree = ET.parse(anno_file)
 
         file_name = tree.findtext("filename")
         img_dir = os.path.join(data_base_dir, 'JPEGImages', file_name)
@@ -59,7 +59,7 @@ class COCOParser(object):
     def __init__(self, norm_bbox=False):
         self.norm_bbox = norm_bbox
 
-    def parse(self):
+    def parse(self, anno_file):
         return
 
 

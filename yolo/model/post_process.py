@@ -4,7 +4,6 @@
 
 import sys
 sys.path.append('..')
-import time
 import numpy as np
 import tensorflow as tf
 from dataset.image_utils import xywh2xyxy, box_iou
@@ -48,3 +47,7 @@ def batch_non_max_suppression(prediction, conf_threshold=0.5, iou_threshold=0.25
 
         output[i] = tf.concat(pred_nms, axis=0)
     return output
+
+
+def weighted_boxes_fusion():
+    return

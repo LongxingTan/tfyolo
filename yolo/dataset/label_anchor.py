@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# Implementations of anchor labeler that can assign the label to corresponding grids and encode the label
 
 import tensorflow as tf
 

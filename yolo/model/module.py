@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
+# implementations of layer modules
 
 import tensorflow as tf
 from tensorflow.keras.layers import Layer, Conv2D, BatchNormalization, MaxPool2D
@@ -9,24 +10,13 @@ from tensorflow.keras.layers import Layer, Conv2D, BatchNormalization, MaxPool2D
 
 
 class Mish(object):
-    def __init__(self):
-        pass
-
     def __call__(self, x):
         return x * tf.math.tanh(tf.math.softplus(x))
 
 
 class Swish(object):
-    def __init__(self):
-        pass
-
     def __call__(self, x):
-        return tf.nn.swish(x)
-
-
-class Silu(object):
-    def __call__(self, x):
-        return tf.nn.silu(x)  # tf.nn.leaky_relu(x, alpha=0.1)
+        return tf.nn.swish(x)  # tf.nn.leaky_relu(x, alpha=0.1)
 
 
 class Conv(Layer):
@@ -57,9 +47,11 @@ class Focus(Layer):
         self.conv = Conv(filters, kernel_size, strides, padding)
 
     def call(self, x):
-        return self.conv(
-            tf.concat([x[..., ::2, ::2, :], x[..., 1::2, ::2, :], x[..., ::2, 1::2, :], x[..., 1::2, 1::2, :]],
-                      axis=-1))
+        return self.conv(tf.concat([x[..., ::2, ::2, :],
+                                    x[..., 1::2, ::2, :],
+                                    x[..., ::2, 1::2, :],
+                                    x[..., 1::2, 1::2, :]],
+                                   axis=-1))
 
 
 class CrossConv(Layer):
@@ -151,7 +143,7 @@ class VoVCSP(Layer):
 
 
 class SPP(Layer):
-    def __init__(self, units, kernels=[5, 9, 13]):
+    def __init__(self, units, kernels=(5, 9, 13)):
         super(SPP, self).__init__()
         units_e = units // 2  # Todo:
         self.conv1 = Conv(units_e, 1, 1)
@@ -165,7 +157,7 @@ class SPP(Layer):
 
 class SPPCSP(Layer):
     # Cross Stage Partial Networks
-    def __init__(self, units, n=1, shortcut=False, expansion=0.5, kernels=[5, 9, 13]):
+    def __init__(self, units, n=1, shortcut=False, expansion=0.5, kernels=(5, 9, 13)):
         super(SPPCSP, self).__init__()
         units_e = int(2 * units * expansion)
         self.conv1 = Conv(units_e, 1, 1)

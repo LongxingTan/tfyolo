@@ -32,7 +32,7 @@ class Trainer(object):
     def __init__(self, params):
         self.params = params
         if os.path.exists(self.params['log_dir']):
-             shutil.rmtree(self.params['log_dir'])
+            shutil.rmtree(self.params['log_dir'])
         self.log_writer = tf.summary.create_file_writer(self.params['log_dir'])
         self.global_step = tf.Variable(0, trainable=False, dtype=tf.int64)    
         self.build_model()
@@ -146,7 +146,7 @@ if __name__ == '__main__':
                              params['img_size'],
                              params['anchor_assign_method'],
                              params['anchor_positive_augment'])
-    train_dataset = data_loader(batch_size=params['batch_size'], valid=False, test=False)
+    train_dataset = data_loader(batch_size=params['batch_size'], anchor_label=True)
     train_dataset.len = len(DataReader)
 
     trainer.train(train_dataset)
