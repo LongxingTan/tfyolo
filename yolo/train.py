@@ -22,14 +22,16 @@ tf.random.set_seed(1949)
 
 
 class Trainer(object):
-    '''
-    Trainer class
+    """ Trainer class that uses the dataset and model to train
     # Usage
     data_loader = tf.data.Dataset()
-    trainer = Trainer(params)    
+    trainer = Trainer(params)
     trainer.train(data_loader)
-    '''
+    """
     def __init__(self, params):
+        """ Constructor
+        :param params: dict, with dir and training parameters
+        """
         self.params = params
         if os.path.exists(self.params['log_dir']):
             shutil.rmtree(self.params['log_dir'])
@@ -38,6 +40,10 @@ class Trainer(object):
         self.build_model()
 
     def build_model(self):
+        """ Build the model,
+        define the training strategy and model, loss, optimizer
+        :return:
+        """
         if self.params['multi_gpus']:
             self.strategy = tf.distribute.MirroredStrategy(devices=None)
         else:
@@ -57,18 +63,25 @@ class Trainer(object):
             self.optimizer = Optimizer('adam')()   
 
     def train(self, train_dataset, valid_dataset=None, transfer='scratch'):
+        """ train function
+        :param train_dataset: train dataset built by tf.data
+        :param valid_dataset: valid dataset build by td.data, optional
+        :param transfer: pretrain
+        :return:
+        """
         steps_per_epoch = train_dataset.len / self.params['batch_size']
         self.total_steps = int(self.params['n_epochs'] * steps_per_epoch)
         self.params['warmup_steps'] = self.params['warmup_epochs'] * steps_per_epoch
 
         with self.strategy.scope():
-            self.lr_scheduler = LrScheduler(self.total_steps, self.params)    
-            self.model = self.model(self.params['img_size'])  # => tf.keras.Model
+            self.lr_scheduler = LrScheduler(self.total_steps, self.params)
+            # => tf.keras.Model
+            self.model = self.model(self.params['img_size'])
 
             ckpt = tf.train.Checkpoint(model=self.model, optimizer=self.optimizer)
             ckpt_manager = tf.train.CheckpointManager(ckpt, self.params['checkpoint_dir'], max_to_keep=5)
             if transfer == 'darknet':
-                print("Load weights from")
+                print("Load weights from ")
                 model_pretrain = Yolo(self.params['yaml_dir'])()
                 model_pretrain.load_weights()
                 self.model.get_layer().set_weights()

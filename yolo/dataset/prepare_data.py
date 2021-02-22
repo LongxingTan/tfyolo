@@ -1,10 +1,9 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
-# prepare the voc or coco data to a text for dataset/read_data.py
+# prepare the voc or coco data to a text for dataset/read_data.py with xyxy type
 
 import os
-import logging
 from tqdm import tqdm
 import argparse
 import xml.etree.ElementTree as ET
@@ -36,10 +35,10 @@ class VOCParser(object):
                 continue
             name = obj.find('name').text  # .encode('utf-8')
             bbox = obj.find('bndbox')
-            xmin_ = float(bbox.find('xmin').text)
-            ymin_ = float(bbox.find('ymin').text)
-            xmax_ = float(bbox.find('xmax').text)
-            ymax_ = float(bbox.find('ymax').text)
+            xmin_ = float(bbox.find('xmin').text.strip())
+            ymin_ = float(bbox.find('ymin').text.strip())
+            xmax_ = float(bbox.find('xmax').text.strip())
+            ymax_ = float(bbox.find('ymax').text.strip())
             if self.norm_bbox:
                 xmin_ /= width
                 ymin_ /= height
@@ -78,7 +77,6 @@ class DataPrepare(object):
 
         self.data_dir = data_dir
         self.output_dir = output_dir
-        class_name_dir = os.path.join(data_dir, class_name_dir)
         self.class_map = {name: idx for idx, name in enumerate(open(class_name_dir).read().splitlines())}
         self.output_prefix = output_prefix
 
@@ -120,13 +118,60 @@ class DataPrepare(object):
         return all_objects
 
 
+class VOCPrepare(object):
+    def __init__(self, data_dir, class_name_dir, output_dir):
+        self.parser = VOCParser()
+
+        self.xml_files = []
+        for xml_file in os.listdir(os.path.join(data_dir, "Annotations")):
+            self.xml_files.append(os.path.join(data_dir, "Annotations", xml_file))
+
+        self.data_dir = data_dir
+        self.output_dir = output_dir
+        self.class_map = {name: idx for idx, name in enumerate(open(class_name_dir).read().splitlines())}
+
+    def write(self):
+        all_objects = self.get_objects()
+
+        with open(self.output_dir, 'a') as f:
+            for objects in tqdm(all_objects):
+                self.write_single(f, objects)
+        print('Train text generated, samples: {}'.format(len(all_objects)))
+
+    def write_single(self, f, objects):
+        gt = [','.join([str(i[n_gt]) for i in objects[1:6]]) for n_gt in range(len(objects[1]))]
+        objects_new = str(objects[0]) + ' ' + ' '.join(gt)
+        f.writelines(objects_new)
+        f.writelines("\n")
+
+    def get_objects(self):
+        all_objects = []
+        for xml in self.xml_files:
+            objects = self.parser.parse_xml(xml, self.data_dir, self.class_map, return_img=False)
+            if objects is not None:
+                all_objects.append(objects)
+        return all_objects
+
+
 if __name__ == '__main__':
     base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', type=str, default=base_dir + '/data/voc2012/VOCdevkit/VOC2012', help='data directory')
-    parser.add_argument('--class_name_dir', type=str, default='voc2012.names', help='class name directory')
-    parser.add_argument('--output_dir', type=str, default=base_dir + '/data/voc2012/VOCdevkit/VOC2012', help='output text directory')
+    parser.add_argument('--data_dir', type=str, default=base_dir + '/data/voc', help='data directory')
+    parser.add_argument('--class_name_dir', type=str, default=base_dir + '/data/voc/voc.names', help='class name dir')
+    parser.add_argument('--output_dir', type=str, default=base_dir + '/data/voc', help='output text directory')
     opt = parser.parse_args()
 
-    data_prepare = DataPrepare(opt.data_dir, opt.class_name_dir, opt.output_dir)
+    data_prepare = VOCPrepare(os.path.join(opt.data_dir, 'train/VOCdevkit/VOC2007'),
+                              opt.class_name_dir,
+                              os.path.join(opt.output_dir, 'voc_train.txt'))
+    data_prepare.write()
+
+    data_prepare = VOCPrepare(os.path.join(opt.data_dir, 'train/VOCdevkit/VOC2012'),
+                              opt.class_name_dir,
+                              os.path.join(opt.output_dir, 'voc_train.txt'))
+    data_prepare.write()
+
+    data_prepare = VOCPrepare(os.path.join(opt.data_dir, 'test/VOCdevkit/VOC2007'),
+                              opt.class_name_dir,
+                              os.path.join(opt.output_dir, 'voc_test.txt'))
     data_prepare.write()

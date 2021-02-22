@@ -19,8 +19,8 @@ from model.post_process import batch_non_max_suppression
 
 
 class TestDataReader(DataReader):
-    def __init__(self, annotations_dir, image_target_size=640, transform=None, mosaic=False, augment=False, filter_idx=None, test=True):
-        super(TestDataReader, self).__init__(annotations_dir, image_target_size, transform, mosaic, augment, filter_idx, test)
+    def __init__(self, annotations_dir, image_target_size=640, transform=None, mosaic=False, augment=False):
+        super(TestDataReader, self).__init__(annotations_dir, image_target_size, transform, mosaic, augment)
 
     def __getitem__(self, idx):
         img, label = self.load_image_and_label(idx)
@@ -61,15 +61,16 @@ class Evaluator(object):
 
             predictions = self.model(img)
             predictions = [tf.reshape(x, (tf.shape(x)[0], -1, tf.shape(x)[-1])) for x in predictions]
-            predictions = tf.concat(predictions, axis=1)  # batch_size * -1 * (num_class + 5)
-
+            # batch_size * -1 * (num_class + 5)
+            predictions = tf.concat(predictions, axis=1)
+            # a list with n_image length, each element is n_pred * 6
             preds = batch_non_max_suppression(predictions, conf_threshold=0.4,
-                                              iou_threshold=0.35)  # n_image list, ele: n_pred * 6
+                                              iou_threshold=0.35)
             preds = [i.numpy() for i in preds]
             image_id = image_id.numpy().astype(str)
             labels = labels.numpy()
 
-            for i, label in enumerate(labels):  # iter for image
+            for i, label in enumerate(labels):  # iter for image, gt
                 with open(results_dir + '/ground-truth/{}.txt'.format(image_id[i]), 'w') as f:
                     for l in label:
                         class_name = self.id2name[l[4]]
@@ -78,7 +79,7 @@ class Evaluator(object):
                         bbox_message = ' '.join([class_name, xmin, ymin, xmax, ymax]) + '\n'
                         f.write(bbox_message)
 
-            for i, (pred, original_shape) in enumerate(zip(preds, image_original_shape)):  # iter for image
+            for i, (pred, original_shape) in enumerate(zip(preds, image_original_shape)):  # iter for image, pred
                 if not pred.any():
                     with open(results_dir + '/predicted/{}.txt'.format(image_id[i]), 'w') as f:
                         f.write('')

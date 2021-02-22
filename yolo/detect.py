@@ -29,14 +29,14 @@ def image_demo(img, model, img_size=640, class_names=None, conf_threshold=0.4, i
     pred_bbox = tf.concat(pred_bbox, axis=1)  # batch_size * -1 * (num_class + 5)
 
     bboxes = batch_non_max_suppression(pred_bbox, conf_threshold=conf_threshold, iou_threshold=iou_threshold)
-    bboxes = bboxes[0].numpy()  # batch is 1
+    bboxes = bboxes[0].numpy()  # batch is 1 for detect
 
     bboxes = resize_back(bboxes, target_sizes=img_size, original_shape=original_shape)  # adjust box to original size
     if bboxes.any():   
         image = draw_box(img, np.array(bboxes), class_names)
         cv2.imwrite('./demo.jpg', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
     else:
-        print('no box detected')
+        print('No box detected')
 
 
 def video_demo(video, model, plot=False, save=False):

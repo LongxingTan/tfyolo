@@ -107,4 +107,3 @@ def bbox_iou(bbox1, bbox2, xyxy=False, giou=False, diou=False, ciou=False, epsil
                 alpha = v / (1 - iou + v)
                 return iou - (rho2 / c2 + v * alpha)
     return tf.clip_by_value(iou, 0, 1)
-

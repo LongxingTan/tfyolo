@@ -7,8 +7,15 @@ YoloV5 implemented by TensorFlow2 , with support for training, evaluation and in
 
 ![demo](./data/sample/demo1.png)
 
-<!-- | Model | Test Size | AP<sup>val</sup> | AP<sub>50</sub><sup>val</sup> | AP<sub>75</sub><sup>val</sup> | AP<sub>S</sub><sup>val</sup> | AP<sub>M</sub><sup>val</sup> | AP<sub>L</sub><sup>val</sup> | yaml | weights |
-| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | -->
+<!--
+| Model | Size | AP<sup>val</sup> | AP<sub>50</sub><sup>val</sup> | AP<sub>75</sub><sup>val</sup> |  cfg | weights |
+| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | 
+| YOLOV5s | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
+| YOLOV5m | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
+| YOLOV5l | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
+| YOLOV5x | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
+|  |  |  |  |  |  |  |
+-->
 
 ## Key Features
 - minimal Yolov5 by pure tensorflow2
@@ -35,7 +42,7 @@ $ bash download_weights.sh
 ``` -->
 ### Download VOC
 ```
-$ data/scripts/get_voc.sh
+$ bash data/scripts/get_voc.sh
 $ cd yolo
 $ python dataset/prepare_data.py
 ```
@@ -49,17 +56,23 @@ $ bash get_coco_dataset.sh
 ```
 $ python train.py
 ```
-If you want to train on custom dataset, PLEASE note the input data should like this:
-```
-image_dir/001.jpg x_min, y_min, x_max, y_max, class_id x_min2, y_min2, x_max2, y_max2, class_id2
-```
-And maybe new anchor need to be created depending on the data, don't forget to change the nc(number classes) in yolo-yaml.
+
 
 ### Inference
 ```
 $ python detect.py
+$ python test.py
 ```
 
+### Train on custom data
+If you want to train on custom dataset, PLEASE note the input data should like this:
+```
+image_dir/001.jpg x_min, y_min, x_max, y_max, class_id x_min2, y_min2, x_max2, y_max2, class_id2
+```
+And maybe new anchor need to be created, don't forget to change the nc(number classes) in yolo-yaml.
+```
+$ python dataset/create_anchor.py
+```
 ## References and Further Reading
 - [yolov5](https://github.com/ultralytics/yolov5)
 - [PyTorch_YOLOv4](https://github.com/WongKinYiu/PyTorch_YOLOv4)
