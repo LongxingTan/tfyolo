@@ -99,7 +99,7 @@ class BottleneckCSP(Layer):
         self.conv2 = Conv2D(units_e, 1, 1, use_bias=False, kernel_initializer=tf.random_normal_initializer(stddev=0.01))
         self.conv3 = Conv2D(units_e, 1, 1, use_bias=False, kernel_initializer=tf.random_normal_initializer(stddev=0.01))
         self.conv4 = Conv(units, 1, 1)
-        self.bn = BatchNormalization()
+        self.bn = BatchNormalization(momentum=0.03)
         self.activation = Mish()
         self.modules = tf.keras.Sequential([Bottleneck(units_e, shortcut, expansion=1.0) for _ in range(n_layer)])
 

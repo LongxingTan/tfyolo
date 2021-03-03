@@ -2,6 +2,7 @@
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
 # prepare the voc or coco data to a text for dataset/read_data.py with xyxy type
+# because the script will add the information to existing file, so delete the txt file manually if run more times
 
 import os
 from tqdm import tqdm
@@ -11,9 +12,9 @@ import xml.etree.ElementTree as ET
 
 class VOCParser(object):
     def __init__(self, norm_bbox=False):
-        '''
+        """
         parse voc style xml data into txt, box coordinator normalize into (0,1) or keep pixel
-        '''
+        """
         self.norm_bbox = norm_bbox
 
     def parse(self, anno_file, data_base_dir, class_map, return_img=True):
@@ -136,7 +137,7 @@ class VOCPrepare(object):
         with open(self.output_dir, 'a') as f:
             for objects in tqdm(all_objects):
                 self.write_single(f, objects)
-        print('Train text generated, samples: {}'.format(len(all_objects)))
+        print('Text generated, samples: {}'.format(len(all_objects)))
 
     def write_single(self, f, objects):
         gt = [','.join([str(i[n_gt]) for i in objects[1:6]]) for n_gt in range(len(objects[1]))]

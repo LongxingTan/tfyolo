@@ -23,17 +23,17 @@ class Optimizer(object):
 
 
 class LrScheduler(object):
-    def __init__(self, total_steps, params, schedular_method='cosine'):
-        if schedular_method == 'step':
-            self.schedular = Step(total_steps, params)
-        elif schedular_method == 'cosine':
-            self.schedular = Cosine(total_steps, params)
+    def __init__(self, total_steps, params, scheduler_method='cosine'):
+        if scheduler_method == 'step':
+            self.scheduler = Step(total_steps, params)
+        elif scheduler_method == 'cosine':
+            self.scheduler = Cosine(total_steps, params)
         self.step_count = 0
         self.total_steps = total_steps
 
     def step(self):
         self.step_count += 1
-        lr = self.schedular(self.step_count)
+        lr = self.scheduler(self.step_count)
         return lr
 
     def plot(self):

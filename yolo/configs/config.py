@@ -16,7 +16,7 @@ parser.add_argument('--checkpoint_dir', type=str, default='../weights', help='sa
 parser.add_argument('--saved_model_dir', type=str, default='../weights/yolov5', help='saved pb model path')
 
 parser.add_argument('--n_epochs', type=int, default=30)
-parser.add_argument('--batch_size', type=int, default=8, help='total batch size for all GPUs')
+parser.add_argument('--batch_size', type=int, default=4, help='total batch size for all GPUs')
 parser.add_argument('--multi_gpus', type=bool, default=False)
 parser.add_argument('--init_learning_rate', type=float, default=3e-4)
 parser.add_argument('--warmup_learning_rate', type=float, default=1e-6)
@@ -26,7 +26,7 @@ parser.add_argument('--mosaic_data', type=bool, default=False, help='if mosaic d
 parser.add_argument('--augment_data', type=bool, default=True, help='if augment data')
 parser.add_argument('--anchor_assign_method', type=str, default='wh', help='assign anchor by wh or iou')
 parser.add_argument('--anchor_positive_augment', type=bool, default=True, help='extend the neighbour to positive')
-parser.add_argument('--label_smoothing', type=float, default=0., help='classification label smoothing')
+parser.add_argument('--label_smoothing', type=float, default=0.02, help='classification label smoothing')
 
 args = parser.parse_args()
 params = vars(args)

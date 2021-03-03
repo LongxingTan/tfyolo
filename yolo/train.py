@@ -74,7 +74,7 @@ class Trainer(object):
         self.params['warmup_steps'] = self.params['warmup_epochs'] * steps_per_epoch
 
         with self.strategy.scope():
-            self.lr_scheduler = LrScheduler(self.total_steps, self.params)
+            self.lr_scheduler = LrScheduler(self.total_steps, self.params, scheduler_method='cosine')
             # => tf.keras.Model
             self.model = self.model(self.params['img_size'])
 
