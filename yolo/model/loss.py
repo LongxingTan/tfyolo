@@ -77,9 +77,8 @@ def bbox_iou(bbox1, bbox2, xyxy=False, giou=False, diou=False, ciou=False, epsil
         b2y1, b2y2 = bbox2[..., 1] - bbox2[..., 3] / 2, bbox2[..., 1] + bbox2[..., 3] / 2
 
     # intersection area
-    inter = (tf.minimum(b1x2, b2x2) - tf.maximum(b1x1, b2x1)) * \
-            (tf.minimum(b1y2, b2y2) - tf.maximum(b1y1, b2y1))
-    inter = tf.where(inter > 0, inter, tf.zeros_like(inter))
+    inter = tf.maximum(tf.minimum(b1x2, b2x2) - tf.maximum(b1x1, b2x1), 0) * \
+            tf.maximum(tf.minimum(b1y2, b2y2) - tf.maximum(b1y1, b2y1), 0)
 
     # union area
     w1, h1 = b1x2 - b1x1 + epsilon, b1y2 - b1y1 + epsilon
