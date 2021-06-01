@@ -148,7 +148,7 @@ class VOCPrepare(object):
     def get_objects(self):
         all_objects = []
         for xml in self.xml_files:
-            objects = self.parser.parse_xml(xml, self.data_dir, self.class_map, return_img=False)
+            objects = self.parser.parse(xml, self.data_dir, self.class_map, return_img=False)
             if objects is not None:
                 all_objects.append(objects)
         return all_objects
