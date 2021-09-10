@@ -17,12 +17,12 @@ def resize_image(img, target_sizes, keep_ratio=True, label=None):
     h, w, _ = img.shape
     scale = min(target_h / h, target_w / w)
     temp_h, temp_w = int(scale * h), int(scale * w)
-    image_resize = cv2.resize(img, (temp_w, temp_h))
+    image_resize = cv2.resize(img, (temp_w, temp_h), interpolation=cv2.INTER_CUBIC)
 
     if keep_ratio:
-        image_new = np.full(shape=(target_h, target_w, 3), fill_value=128.0)
+        image_new = np.full(shape=(target_h, target_w, 3), fill_value=128.0, dtype='uint8')
         delta_h, delta_w = (target_h - temp_h) // 2, (target_w - temp_w) // 2
-        image_new[delta_h: delta_h + temp_h, delta_w: delta_w + temp_w, :] = image_resize
+        image_new[delta_h: delta_h + temp_h, delta_w: delta_w + temp_w, :] = image_resize.copy()
 
         if label is not None:
             label[:, [0, 2]] = (label[:, [0, 2]] * scale * w + delta_w) / target_w
