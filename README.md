@@ -4,6 +4,8 @@
 [pypi-url]: https://pypi.python.org/pypi/tfyolo
 [build-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml?query=branch%3Amaster
+[lint-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/lint.yml/badge.svg?branch=master
+[lint-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/lint.yml?query=branch%3Amaster
 [docs-image]: https://readthedocs.org/projects/tf-yolo/badge/?version=latest
 [docs-url]: https://tf-yolo.readthedocs.io/en/latest/
 [coverage-image]: https://codecov.io/gh/longxingtan/tf-yolo/branch/dev/graph/badge.svg
@@ -16,7 +18,9 @@
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
+[![Lint Status][lint-image]][lint-url]
 [![Docs Status][docs-image]][docs-url]
+[![Code Coverage][coverage-image]][coverage-url]
 
 **[Documentation](https://time-series-prediction.readthedocs.io)** | **[Tutorials](https://time-series-prediction.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://time-series-prediction.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/Time-series-prediction/blob/master/README_CN.md)**
 
@@ -30,8 +34,6 @@
 - label encoding by iou or wh ratio of anchor
 - positive sample augment
 - multi-gpu training
-- detailed code comments
-- full of drawbacks with huge space to improve
 
 ![demo](./docs/source/_static/demo.png)
 

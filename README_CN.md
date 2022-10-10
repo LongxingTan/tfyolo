@@ -26,7 +26,6 @@ tfyolo采用TensorFlow2，支持各类YOLO目标检测模型。<br>
 - positive sample augment
 - multi-gpu training
 - detailed code comments
-- full of drawbacks with huge space to improve
 
 ## Usage
 ### Clone and install requirements
