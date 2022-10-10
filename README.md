@@ -10,6 +10,8 @@
 [docs-url]: https://tf-yolo.readthedocs.io/en/latest/
 [coverage-image]: https://codecov.io/gh/longxingtan/tf-yolo/branch/dev/graph/badge.svg
 [coverage-url]: https://codecov.io/github/longxingtan/tf-yolo
+[codeql-image]: https://github.com/longxingtan/tf-yolo/actions/workflows/codeql-analysis.yml/badge.svg
+[codeql-url]: https://github.com/longxingtan/tf-yolo/actions/workflows/codeql-analysis.yml
 
 <h1 align="center">
 <img src="./docs/source/_static/logo.svg" width="490" align=center/>
@@ -21,8 +23,9 @@
 [![Lint Status][lint-image]][lint-url]
 [![Docs Status][docs-image]][docs-url]
 [![Code Coverage][coverage-image]][coverage-url]
+[![CodeQL Status][codeql-image]][codeql-url]
 
-**[Documentation](https://time-series-prediction.readthedocs.io)** | **[Tutorials](https://time-series-prediction.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://time-series-prediction.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/Time-series-prediction/blob/master/README_CN.md)**
+**[Documentation](https://tf-yolo.readthedocs.io)** | **[Tutorials](https://tf-yolo.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://tf-yolo.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/tf-yolo/blob/master/README_CN.md)**
 
 **tfyolo** is a YOLO series library implemented by TensorFlow <br>
 
