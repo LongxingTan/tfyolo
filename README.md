@@ -1,6 +1,6 @@
 [license-image]: https://img.shields.io/badge/license-Anti%20996-blue.svg
 [license-url]: https://github.com/996icu/996.ICU/blob/master/LICENSE
-[pypi-image]: https://badge.fury.io/py/tfts.svg
+[pypi-image]: https://badge.fury.io/py/tfyolo.svg
 [pypi-url]: https://pypi.python.org/pypi/tfyolo
 [build-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml?query=branch%3Amaster

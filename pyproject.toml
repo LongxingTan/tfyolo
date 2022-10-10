@@ -55,11 +55,14 @@ homepage = "https://tfyolo.readthedocs.io"
 python = ">=3.8,<3.11"
 
 tensorflow = "^2.4.1"
+opencv-python = "^4.1.1"
 optuna = "^2.3.0"
 scipy = "^1.8"
 pandas = "^1.3.0"
 scikit-learn = ">=0.24,<1.2"
-matplotlib = "*"
+matplotlib = "^3.2.2"
+Pillow = "^7.1.2"
+PyYAML = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
 # checks and make tools
