@@ -29,7 +29,6 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install zlib  # for pillow in Mac
-          xcode-select --install
 
       - name: Get full Python version
         id: full-python-version
