@@ -6,6 +6,8 @@
 [build-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml?query=branch%3Amaster
 [docs-image]: https://readthedocs.org/projects/tf-yolo/badge/?version=latest
 [docs-url]: https://tf-yolo.readthedocs.io/en/latest/
+[coverage-image]: https://codecov.io/gh/longxingtan/tf-yolo/branch/dev/graph/badge.svg
+[coverage-url]: https://codecov.io/github/longxingtan/tf-yolo
 
 <h1 align="center">
 <img src="./docs/source/_static/logo.svg" width="490" align=center/>
