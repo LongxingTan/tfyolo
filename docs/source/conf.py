@@ -15,6 +15,10 @@ from pathlib import Path
 import shutil
 import sys
 
+from sphinx.application import Sphinx
+from sphinx.ext.autosummary import Autosummary
+from sphinx.pycode import ModuleAnalyzer
+
 SOURCE_PATH = Path(os.path.dirname(__file__))  # noqa # docs source
 PROJECT_PATH = SOURCE_PATH.joinpath("../..")  # noqa # project root
 
@@ -31,7 +35,19 @@ author = "Longxing Tan"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = [
+    "nbsphinx",
+    "recommonmark",
+    "sphinx_markdown_tables",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.doctest",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.napoleon",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

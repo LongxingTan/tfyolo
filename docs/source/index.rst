@@ -5,6 +5,10 @@
 
 tfyolo Documentation!
 ==================================
+.. raw:: html
+
+   <a class="github-button" href="https://github.com/LongxingTan/tf-yolo" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star LongxingTan/tf-yolo on GitHub">GitHub</a>
+
 
 .. toctree::
    :titlesonly:
