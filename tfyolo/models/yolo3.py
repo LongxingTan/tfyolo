@@ -8,7 +8,6 @@ class YoloV3(object):
         self.backbone = Darknet53()
 
     def __call__(self, inputs):
-
         return
 
 

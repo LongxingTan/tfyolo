@@ -6,14 +6,15 @@ import os
 import shutil
 import sys
 
-from configs.config import params
-from dataset import DataReader
-from dataset.image_utils import box_iou, resize_back, resize_image, xyxy2xywh
-from model.metrics import ap_per_class
-from model.post_process import batch_non_max_suppression
 import numpy as np
 import tensorflow as tf
 import yaml
+
+from tfyolo.configs.config import params
+from tfyolo.dataset import DataReader
+from tfyolo.dataset.image_utils import box_iou, resize_back, resize_image, xyxy2xywh
+from tfyolo.models.metrics import ap_per_class
+from tfyolo.models.post_process import batch_non_max_suppression
 
 
 class TestDataReader(DataReader):
@@ -57,7 +58,6 @@ class Evaluator(object):
         os.mkdir(results_dir + "/ground-truth")
 
         for image_id, image_original_shape, img, labels in test_dataset:
-
             predictions = self.model(img)
             predictions = [tf.reshape(x, (tf.shape(x)[0], -1, tf.shape(x)[-1])) for x in predictions]
             # batch_size * -1 * (num_class + 5)
@@ -89,7 +89,6 @@ class Evaluator(object):
                 pred_class = pred[:, 5].astype(np.int32)
 
                 with open(results_dir + "/predicted/{}.txt".format(image_id[i]), "w") as f:
-
                     for bbox, score, clss in zip(pred_bbox, pred_score, pred_class):
                         xmin, ymin, xmax, ymax = list(map(str, bbox))
                         score = "%.4f" % score

@@ -92,6 +92,6 @@ coverage.xml
 /backup/*
 **/nohup.out
 **/temp.py
-/data/logs/*
+/examples/data/logs/*
 /data/*.zip
 /weights/

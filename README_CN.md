@@ -5,7 +5,7 @@ tfyolo采用TensorFlow2，支持各类YOLO目标检测模型。<br>
 
 中文名：逆丑丑，改编自”你瞅瞅“方言版。
 
-![demo](./data/sample/demo1.png)
+![demo](examples/data/sample/demo1.png)
 
 
 | Model | Size | AP<sup>val</sup> | AP<sub>50</sub><sup>val</sup> | AP<sub>75</sub><sup>val</sup> |  cfg | weights |

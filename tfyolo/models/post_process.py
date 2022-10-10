@@ -2,12 +2,10 @@
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
 
-import sys
-
-sys.path.append("..")
-from dataset.image_utils import box_iou, xywh2xyxy
 import numpy as np
 import tensorflow as tf
+
+from tfyolo.dataset.image_utils import box_iou, xywh2xyxy
 
 
 def batch_non_max_suppression(

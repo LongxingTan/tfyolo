@@ -1,22 +1,28 @@
-# tfyolo
-
 [license-image]: https://img.shields.io/badge/license-Anti%20996-blue.svg
 [license-url]: https://github.com/996icu/996.ICU/blob/master/LICENSE
 [pypi-image]: https://badge.fury.io/py/tfts.svg
-[pypi-url]: https://pypi.python.org/pypi/tfts
-[build-image]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/test.yml/badge.svg?branch=master
-[build-url]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/test.yml?query=branch%3Amaster
-[docs-image]: https://readthedocs.org/projects/time-series-prediction/badge/?version=latest
-[docs-url]: https://time-series-prediction.readthedocs.io/en/latest/
+[pypi-url]: https://pypi.python.org/pypi/tfyolo
+[build-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml/badge.svg?branch=master
+[build-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml?query=branch%3Amaster
+[docs-image]: https://readthedocs.org/projects/tf-yolo/badge/?version=latest
+[docs-url]: https://tf-yolo.readthedocs.io/en/latest/
+
+<h1 align="center">
+<img src="./docs/source/_static/logo.svg" width="490" align=center/>
+</h1><br>
+
+-------------------------------------------------------------------------
 
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
 [![Docs Status][docs-image]][docs-url]
 
+**[Documentation](https://time-series-prediction.readthedocs.io)** | **[Tutorials](https://time-series-prediction.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://time-series-prediction.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/Time-series-prediction/blob/master/README_CN.md)**
+
 tfyolo is a YOLO (You only look once) library implemented by TensorFlow2 <br>
 
-![demo](./data/sample/demo1.png)
+![demo](examples/data/sample/demo1.png)
 
 ## Key Features
 - minimal Yolov5 by pure tensorflow2
@@ -30,7 +36,9 @@ tfyolo is a YOLO (You only look once) library implemented by TensorFlow2 <br>
 - full of drawbacks with huge space to improve
 
 ## Tutorial
+
 ### prepare the data
+
 ```
 $ bash data/scripts/get_voc.sh
 $ cd yolo
@@ -44,6 +52,7 @@ $ bash get_coco_dataset.sh
 ``` -->
 
 ### Clone and install requirements
+
 ```
 $ git clone git@github.com:LongxingTan/Yolov5.git
 $ cd Yolov5/
@@ -56,18 +65,20 @@ $ bash download_weights.sh
 ``` -->
 
 ### Train
+
 ```
 $ python train.py
 ```
 
-
 ### Inference
+
 ```
 $ python detect.py
 $ python test.py
 ```
 
 ### Train on custom data
+
 If you want to train on custom dataset, PLEASE note the input data should like this:
 ```
 image_dir/001.jpg x_min, y_min, x_max, y_max, class_id x_min2, y_min2, x_max2, y_max2, class_id2
@@ -89,7 +100,9 @@ $ python dataset/create_anchor.py
 
 
 ## Citation
+
 If you find tf-yolo project useful in your research, please consider cite:
+
 ```
 @misc{tfyolo2021,
     title={TFYOLO: yolo series benchmark in tensorflow},
