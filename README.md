@@ -11,8 +11,6 @@
 <img src="./docs/source/_static/logo.svg" width="490" align=center/>
 </h1><br>
 
--------------------------------------------------------------------------
-
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
@@ -20,9 +18,7 @@
 
 **[Documentation](https://time-series-prediction.readthedocs.io)** | **[Tutorials](https://time-series-prediction.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://time-series-prediction.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/Time-series-prediction/blob/master/README_CN.md)**
 
-tfyolo is a YOLO (You only look once) library implemented by TensorFlow2 <br>
-
-![demo](examples/data/sample/demo1.png)
+**tfyolo** is a YOLO series library implemented by TensorFlow <br>
 
 ## Key Features
 - minimal Yolov5 by pure tensorflow2
@@ -34,6 +30,8 @@ tfyolo is a YOLO (You only look once) library implemented by TensorFlow2 <br>
 - multi-gpu training
 - detailed code comments
 - full of drawbacks with huge space to improve
+
+![demo](./docs/source/_static/demo.png)
 
 ## Tutorial
 
