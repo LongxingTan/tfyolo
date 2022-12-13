@@ -1,22 +1,18 @@
-#! /usr/bin/env python
-# coding=utf-8
-# @Author: Longxing Tan, tanlongxing888@163.com
-# Implementations of Yolov5 main model
+"""
+YoloV5
+"""
 
 import math
 
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Conv2D
-import yaml
 
-from tfyolo.layers.module import SPP, SPPCSP, Bottleneck, BottleneckCSP, BottleneckCSP2, Conv, DWConv, Focus, VoVCSP
+from tfyolo.layers.v5_module import SPP, SPPCSP, Bottleneck, BottleneckCSP, BottleneckCSP2, Conv, DWConv, Focus, VoVCSP
 
 
-class Yolo(object):
-    def __init__(self, yaml_dir):
-        with open(yaml_dir) as f:
-            yaml_dict = yaml.load(f, Loader=yaml.FullLoader)
+class YoloV5(object):
+    def __init__(self, yaml_dict):
         self.module_list = self.parse_model(yaml_dict)
         module = self.module_list[-1]
         if isinstance(module, Detect):
@@ -70,6 +66,9 @@ class Yolo(object):
             modules.i, modules.f = i, f
             layers.append(modules)
         return layers
+
+    def build_model(self):
+        pass
 
 
 class Detect(tf.keras.layers.Layer):

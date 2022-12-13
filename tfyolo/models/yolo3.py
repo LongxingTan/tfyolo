@@ -1,3 +1,8 @@
+"""
+`YOLOv3: An Incremental Improvement
+<https://arxiv.org/abs/1804.02767?e05802c1_page=1>`_
+"""
+
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Conv2D

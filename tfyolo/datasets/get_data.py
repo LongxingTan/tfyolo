@@ -3,5 +3,5 @@ import os
 import requests
 
 
-def load_data(data_name="voc"):
+def get_data(data_name="voc"):
     return

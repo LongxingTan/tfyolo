@@ -15,9 +15,6 @@ import tensorflow as tf
 
 from tools.vis_data import draw_box
 
-filePath = os.path.abspath(os.path.dirname(__file__))
-sys.path.append(os.path.split(filePath)[0])
-
 
 def image_demo(img, model, img_size=640, class_names=None, conf_threshold=0.4, iou_threshold=0.3):
     original_shape = img.shape

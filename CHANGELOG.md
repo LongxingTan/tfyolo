@@ -4,6 +4,7 @@
 
 ### Added
 - method support
+    - yolov5
 
 ### Contributor
 - LongxingTan

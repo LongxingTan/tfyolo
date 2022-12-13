@@ -2,7 +2,7 @@ name: Lint
 
 on:
   push:
-    branches: [master, dev]
+    branches: [master]
   pull_request:
     branches: [master]
 
@@ -52,7 +52,6 @@ jobs:
         run: pip install flake8
       - name: Run checks
         run: flake8
-
 
   pre-commit-hooks:
     name: Check that pre-commit hooks pass

@@ -1,9 +1,42 @@
-# tfyolo
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE) <br>
+[license-image]: https://img.shields.io/badge/license-Anti%20996-blue.svg
+[license-url]: https://github.com/996icu/996.ICU/blob/master/LICENSE
+[pypi-image]: https://badge.fury.io/py/tfyolo.svg
+[pypi-url]: https://pypi.python.org/pypi/tfyolo
+[pepy-image]: https://pepy.tech/badge/tfyolo/month
+[pepy-url]: https://pepy.tech/project/tfyolo
+[build-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml/badge.svg?branch=master
+[build-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/test.yml?query=branch%3Amaster
+[lint-image]: https://github.com/LongxingTan/tf-yolo/actions/workflows/lint.yml/badge.svg?branch=master
+[lint-url]: https://github.com/LongxingTan/tf-yolo/actions/workflows/lint.yml?query=branch%3Amaster
+[docs-image]: https://readthedocs.org/projects/tf-yolo/badge/?version=latest
+[docs-url]: https://tf-yolo.readthedocs.io/en/latest/
+[coverage-image]: https://codecov.io/gh/longxingtan/tf-yolo/branch/dev/graph/badge.svg
+[coverage-url]: https://codecov.io/github/longxingtan/tf-yolo
+[codeql-image]: https://github.com/longxingtan/tf-yolo/actions/workflows/codeql-analysis.yml/badge.svg
+[codeql-url]: https://github.com/longxingtan/tf-yolo/actions/workflows/codeql-analysis.yml
 
-tfyolo采用TensorFlow2，支持各类YOLO目标检测模型。<br>
+<h1 align="center">
+<img src="./docs/source/_static/logo.svg" width="400" align=center/>
+</h1><br>
 
-中文名：逆丑丑，改编自”你瞅瞅“方言版。
+[![LICENSE][license-image]][license-url]
+[![PyPI Version][pypi-image]][pypi-url]
+[![Download][pepy-image]][pepy-url]
+[![Build Status][build-image]][build-url]
+[![Lint Status][lint-image]][lint-url]
+[![Docs Status][docs-image]][docs-url]
+[![Code Coverage][coverage-image]][coverage-url]
+[![CodeQL Status][codeql-image]][codeql-url]
+
+**[文档](https://tf-yolo.readthedocs.io)** | **[教程](https://tf-yolo.readthedocs.io/en/latest/tutorials.html)** | **[发布日志](https://tf-yolo.readthedocs.io/en/latest/CHANGELOG.html)** | **[English](https://github.com/LongxingTan/tf-yolo/blob/master/README.md)**
+
+tfyolo是YOLO目标检测工具，采用TensorFlow框架。中文名：逆丑丑，来自"你瞅瞅"方言，引申自“你只瞅一次”。<br>
+- 纯tensorflow2实现
+- yaml文件配置模型
+- 支持自定义数据训练
+- 运用多种提升技巧
+- 多GPU、TPU训练
+
 
 ![demo](examples/data/sample/demo1.png)
 
@@ -16,16 +49,6 @@ tfyolo采用TensorFlow2，支持各类YOLO目标检测模型。<br>
 | YOLOV5x | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
 |  |  |  |  |  |  |  |
 
-
-## Key Features
-- minimal Yolov5 by pure tensorflow2
-- yaml file to configure the model
-- custom data training
-- mosaic data augmentation
-- label encoding by iou or wh ratio of anchor
-- positive sample augment
-- multi-gpu training
-- detailed code comments
 
 ## Usage
 
@@ -73,8 +96,3 @@ And maybe new anchor need to be created, don't forget to change the nc(number cl
 ```
 $ python dataset/create_anchor.py
 ```
-## References and Further Reading
-- [yolov5](https://github.com/ultralytics/yolov5)
-- [PyTorch_YOLOv4](https://github.com/WongKinYiu/PyTorch_YOLOv4)
-- [yolov3-tf2](https://github.com/zzh8829/yolov3-tf2)
-- [tensorflow-yolov3](https://github.com/YunYang1994/tensorflow-yolov3)

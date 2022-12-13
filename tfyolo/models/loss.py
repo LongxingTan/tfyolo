@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
-# Implementations of yolo loss function
+"""yolo loss function"""
 
 import math
 

@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # coding=utf-8
 # @Author: Longxing Tan, tanlongxing888@163.com
-# implementations of layer modules
+"""Yolov5 layer modules"""
 
 import tensorflow as tf
-from tensorflow.keras.layers import BatchNormalization, Conv2D, Layer, MaxPool2D
+from tensorflow.keras.layers import BatchNormalization, Conv2D, MaxPool2D
 
 # from tensorflow.keras.layers import DepthwiseConv2D
 # from tensorflow.keras.layers.experimental import SyncBatchNormalization
@@ -20,7 +20,7 @@ class Swish(object):
         return tf.nn.swish(x)  # tf.nn.leaky_relu(x, alpha=0.1)
 
 
-class Conv(Layer):
+class Conv(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, strides, padding="SAME", groups=1):
         super(Conv, self).__init__()
         self.conv = Conv2D(
@@ -40,7 +40,7 @@ class Conv(Layer):
         return self.activation(self.bn(self.conv(x)))
 
 
-class DWConv(Layer):
+class DWConv(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, strides):
         super(DWConv, self).__init__()
         self.conv = Conv(filters, kernel_size, strides, groups=1)  # Todo
@@ -49,7 +49,7 @@ class DWConv(Layer):
         return self.conv(x)
 
 
-class Focus(Layer):
+class Focus(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, strides=1, padding="SAME"):
         super(Focus, self).__init__()
         self.conv = Conv(filters, kernel_size, strides, padding)
@@ -60,7 +60,7 @@ class Focus(Layer):
         )
 
 
-class CrossConv(Layer):
+class CrossConv(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, strides=1, groups=1, expansion=1, shortcut=False):
         super(CrossConv, self).__init__()
         units_e = int(filters * expansion)
@@ -74,7 +74,7 @@ class CrossConv(Layer):
         return self.conv2(self.conv1(x))
 
 
-class MP(Layer):
+class MP(tf.keras.layers.Layer):
     # Spatial pyramid pooling layer
     def __init__(self, k=2):
         super(MP, self).__init__()
@@ -84,7 +84,7 @@ class MP(Layer):
         return self.m(x)
 
 
-class Bottleneck(Layer):
+class Bottleneck(tf.keras.layers.Layer):
     def __init__(self, units, shortcut=True, expansion=0.5):
         super(Bottleneck, self).__init__()
         self.conv1 = Conv(int(units * expansion), 1, 1)
@@ -97,7 +97,7 @@ class Bottleneck(Layer):
         return self.conv2(self.conv1(x))
 
 
-class BottleneckCSP(Layer):
+class BottleneckCSP(tf.keras.layers.Layer):
     def __init__(self, units, n_layer=1, shortcut=True, expansion=0.5):
         super(BottleneckCSP, self).__init__()
         units_e = int(units * expansion)
@@ -115,7 +115,7 @@ class BottleneckCSP(Layer):
         return self.conv4(self.activation(self.bn(tf.concat([y1, y2], axis=-1))))
 
 
-class BottleneckCSP2(Layer):
+class BottleneckCSP2(tf.keras.layers.Layer):
     def __init__(self, units, n_layer=1, shortcut=False, expansion=0.5):
         super(BottleneckCSP2, self).__init__()
         units_e = int(units)  # hidden channels
@@ -133,7 +133,7 @@ class BottleneckCSP2(Layer):
         return self.conv3(self.activation(self.bn(tf.concat([y1, y2], axis=-1))))
 
 
-class VoVCSP(Layer):
+class VoVCSP(tf.keras.layers.Layer):
     def __init__(self, units, expansion=0.5):
         super(VoVCSP, self).__init__()
         units_e = int(units * expansion)
@@ -148,7 +148,7 @@ class VoVCSP(Layer):
         return self.conv3(tf.concat([x1, x2], axis=-1))
 
 
-class SPP(Layer):
+class SPP(tf.keras.layers.Layer):
     def __init__(self, units, kernels=(5, 9, 13)):
         super(SPP, self).__init__()
         units_e = units // 2  # Todo:
@@ -161,7 +161,7 @@ class SPP(Layer):
         return self.conv2(tf.concat([x] + [module(x) for module in self.modules], axis=-1))
 
 
-class SPPCSP(Layer):
+class SPPCSP(tf.keras.layers.Layer):
     # Cross Stage Partial Networks
     def __init__(self, units, n=1, shortcut=False, expansion=0.5, kernels=(5, 9, 13)):
         super(SPPCSP, self).__init__()
@@ -184,9 +184,9 @@ class SPPCSP(Layer):
         return self.conv7(self.act(self.bn(tf.concat([y1, y2], axis=-1))))
 
 
-class Upsample(Layer):
+class UpSample(tf.keras.layers.Layer):
     def __init__(self, i=None, ratio=2, method="bilinear"):
-        super(Upsample, self).__init__()
+        super(UpSample, self).__init__()
         self.ratio = ratio
         self.method = method
 
@@ -194,7 +194,7 @@ class Upsample(Layer):
         return tf.image.resize(x, (tf.shape(x)[1] * self.ratio, tf.shape(x)[2] * self.ratio), method=self.method)
 
 
-class Concat(Layer):
+class Concat(tf.keras.layers.Layer):
     def __init__(self, dims=-1):
         super(Concat, self).__init__()
         self.dims = dims

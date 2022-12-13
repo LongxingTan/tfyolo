@@ -898,7 +898,7 @@ webpdf = ["pyppeteer (>=1,<1.1)"]
 
 [[package]]
 name = "nbformat"
-version = "5.6.1"
+version = "5.7.0"
 description = "The Jupyter Notebook format"
 category = "dev"
 optional = false
@@ -2534,8 +2534,8 @@ nbconvert = [
     {file = "nbconvert-7.2.1.tar.gz", hash = "sha256:1e180801205ad831b6e2480c5a03307dfb6327fa5b2f9b156d6fed45f9700686"},
 ]
 nbformat = [
-    {file = "nbformat-5.6.1-py3-none-any.whl", hash = "sha256:9c071f0f615c1b0f4f9bf6745ecfd3294fc02daf279a05c76004c901e9dc5893"},
-    {file = "nbformat-5.6.1.tar.gz", hash = "sha256:146b5b9969391387c2089256359f5da7c718b1d8a88ba814320273ea410e646e"},
+    {file = "nbformat-5.7.0-py3-none-any.whl", hash = "sha256:1b05ec2c552c2f1adc745f4eddce1eac8ca9ffd59bb9fd859e827eaa031319f9"},
+    {file = "nbformat-5.7.0.tar.gz", hash = "sha256:1d4760c15c1a04269ef5caf375be8b98dd2f696e5eb9e603ec2bf091f9b0d3f3"},
 ]
 nbsphinx = [
     {file = "nbsphinx-0.8.9-py3-none-any.whl", hash = "sha256:a7d743762249ee6bac3350a91eb3717a6e1c75f239f2c2a85491f9aca5a63be1"},
