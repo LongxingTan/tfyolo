@@ -97,3 +97,11 @@ def box_iou(box1, box2, broadcast=True):
     union_area = boxes1_area + boxes2_area - inter_area + 1e-9
     iou = 1.0 * inter_area / union_area
     return iou
+
+
+def coco2voc():
+    return
+
+
+def voc2yolo():
+    return

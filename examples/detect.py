@@ -13,7 +13,7 @@ from model.post_process import batch_non_max_suppression
 import numpy as np
 import tensorflow as tf
 
-from tools.vis_data import draw_box
+from examples.vis_data import draw_box
 
 
 def image_demo(img, model, img_size=640, class_names=None, conf_threshold=0.4, iou_threshold=0.3):

@@ -3,7 +3,6 @@
 # @Author: Longxing Tan, tanlongxing888@163.com
 """Optimizer"""
 
-import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
@@ -37,12 +36,12 @@ class LrScheduler(object):
         lr = self.scheduler(self.step_count)
         return lr
 
-    def plot(self):
-        lr = []
-        for i in range(self.total_steps):
-            lr.append(self.step())
-        plt.plot(range(self.total_steps), lr)
-        plt.show()
+    # def plot(self):
+    #     lr = []
+    #     for i in range(self.total_steps):
+    #         lr.append(self.step())
+    #     plt.plot(range(self.total_steps), lr)
+    #     plt.show()
 
 
 class Step(tf.keras.optimizers.schedules.LearningRateSchedule):

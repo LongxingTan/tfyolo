@@ -8,9 +8,7 @@ import random
 import cv2
 import numpy as np
 
-from .image_utils import resize_image
-
-random.seed(1919)
+from tfyolo.datasets.image_utils import resize_image
 
 
 def load_mosaic_image(index, mosaic_border, image_target_size, images_dir, labels):
@@ -162,8 +160,13 @@ def augment_hsv(img, hgain=0.5, sgain=0.5, vgain=0.5):
 
 
 def random_flip(img, labels=None):
-    # Please note the labels should be normalized into [0, 1]
-    # assert np.max(labels) <= 1, "The flip labels should be normalized [0, 1]"
+    """
+    The labels should be normalized into [0, 1]
+    :param img:
+    :param labels:
+    :return:
+    """
+    assert np.max(labels) <= 1, "The flip labels should be normalized [0, 1]"
     if np.max(labels[:, 0:4]) > 1:  # transfer to pixel level
         labels[:, [0, 2]] = labels[:, [0, 2]] / img.shape[1]
         labels[:, [1, 3]] = labels[:, [1, 3]] / img.shape[0]

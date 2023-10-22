@@ -5,9 +5,9 @@ check_dirs := tfyolo examples tests
 # run checks on all files and potentially modifies some of them
 
 style:
-	black --preview $(check_dirs)
+	black $(check_dirs)
 	isort $(check_dirs)
-	flake8
+	flake8 $(check_dirs)
 	pre-commit run --all-files
 
 # run tests for the library

@@ -16,7 +16,7 @@
 [codeql-url]: https://github.com/longxingtan/tf-yolo/actions/workflows/codeql-analysis.yml
 
 <h1 align="center">
-<img src="./docs/source/_static/logo.svg" width="400" align=center/>
+<img src="./docs/source/_static/logo.svg" width="250" align=center/>
 </h1><br>
 
 [![LICENSE][license-image]][license-url]

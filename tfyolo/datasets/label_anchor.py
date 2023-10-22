@@ -7,7 +7,11 @@ import tensorflow as tf
 
 
 class AnchorLabeler(object):
-    # transfer the annotated label to model target by anchor encoding, to calculate anchor based loss next step
+    """
+    transfer the annotated label to model target by anchor encoding, to calculate anchor based loss next step
+    scale * anchor_per_scale * grid_x * grid_y * (class + 5)
+    """
+
     def __init__(
         self,
         anchors,
@@ -119,7 +123,7 @@ class AnchorLabeler(object):
         return iou
 
     def enrich_pos_by_position(self, assigned_label, assigned_anchor, gain, matched_matrix, rect_style="rect4"):
-        # using offset to extend more postive result, if x
+        # using offset to extend more positive result, if x
         assigned_xy = assigned_label[..., 0:2]  # n_matched * 2
         offset = tf.constant([[0, 0], [1, 0], [0, 1], [-1, 0], [0, -1]], tf.float32)
         grid_offset = tf.zeros_like(assigned_xy)
