@@ -9,8 +9,8 @@ import unittest
 import numpy as np
 import tensorflow as tf
 
-from tfyolo.dataset import DataReader
-from tfyolo.dataset.image_utils import resize_back, resize_image
+from tfyolo.datasets import DataReader
+from tfyolo.datasets.image_utils import resize_back, resize_image
 from tfyolo.models.post_process import batch_non_max_suppression
 
 

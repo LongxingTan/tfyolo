@@ -41,13 +41,19 @@ tfyolo是YOLO目标检测工具，采用TensorFlow框架。中文名：逆丑丑
 ![demo](examples/data/sample/demo1.png)
 
 
-| Model | Size | AP<sup>val</sup> | AP<sub>50</sub><sup>val</sup> | AP<sub>75</sub><sup>val</sup> |  cfg | weights |
-| :-- | :-: | :-: | :-: | :-: | :-: | :-: |
-| YOLOV5s | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
-| YOLOV5m | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
-| YOLOV5l | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
-| YOLOV5x | 672 | 47.7% |52.6% | 61.4% | [cfg](https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg) | [weights](https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing) |
-|  |  |  |  |  |  |  |
+[//]: # (| Model | Size | AP<sup>val</sup> | AP<sub>50</sub><sup>val</sup> | AP<sub>75</sub><sup>val</sup> |  cfg | weights |)
+
+[//]: # (| :-- | :-: | :-: | :-: | :-: | :-: | :-: |)
+
+[//]: # (| YOLOV5s | 672 | 47.7% |52.6% | 61.4% | [cfg]&#40;https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg&#41; | [weights]&#40;https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing&#41; |)
+
+[//]: # (| YOLOV5m | 672 | 47.7% |52.6% | 61.4% | [cfg]&#40;https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg&#41; | [weights]&#40;https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing&#41; |)
+
+[//]: # (| YOLOV5l | 672 | 47.7% |52.6% | 61.4% | [cfg]&#40;https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg&#41; | [weights]&#40;https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing&#41; |)
+
+[//]: # (| YOLOV5x | 672 | 47.7% |52.6% | 61.4% | [cfg]&#40;https://github.com/WongKinYiu/PyTorch_YOLOv4/blob/master/cfg/yolov4.cfg&#41; | [weights]&#40;https://drive.google.com/file/d/137U-oLekAu-J-fe0E_seTblVxnU3tlNC/view?usp=sharing&#41; |)
+
+[//]: # (|  |  |  |  |  |  |  |)
 
 
 ## Usage
